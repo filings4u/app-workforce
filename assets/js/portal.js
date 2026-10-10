@@ -308,7 +308,6 @@ async function startPortal(){
   render(ctx);
   configureWorkspaceLink(ctx);
   if(ctx?.membership?.role_code==='platform_admin') addPlatformPortalSwitcher(ctx);
-  buildAdminNavigation();
   markActiveNavigation();
   return ctx;
 }
