@@ -295,7 +295,6 @@ async function addPlatformAccountSwitcher(actual,actions,userChip){
 }
 
 function wireStaticUi(){
-  buildAdminNavigation();
   wireFontSizer();
   wireSidebar();
   wireLogout();
