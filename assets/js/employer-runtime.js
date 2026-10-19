@@ -605,11 +605,40 @@ async function initAuditPacket(){
 }
 const initializers={dashboard:initDashboard,employees:initEmployees,'employee-compliance':initEmployeeCompliance,'driver-qualification':initCredentials,clearinghouse:initClearinghouse,'ders-supervisors':()=>initMembers(true),'account-users':()=>initMembers(false),locations:initLocations,programs:initPrograms,'program-enrollment':initEnrollment,'random-pools':initRandomPools,'pool-membership':initPoolMembership,'random-selections':initSelections,'testing-orders':initTesting,'testing-setup':initTestingSetup,'collection-sites':initSites,results:initResults,'action-center':initActionCenter,compliance:initCompliance,'post-accident':initPostAccident,'rtd-follow-up':initRTD,'training-records':initTraining,'policy-acknowledgments':initPolicies,documents:initDocuments,reports:initReports,'audit-packet':initAuditPacket,'audit-history':initAudit,notifications:initNotifications,'company-profile':initCompany,integrations:initIntegrations,'order-history':initOrders,subscription:initSubscription,billing:initSubscription,'account-settings':initSettings,'support-access':initSupportAccess,support:initSupport,'bulk-import':initBulk,onboarding:initOnboarding};
 
+const WORKFORCE_MODE_KEY='s4u_workforce_management_mode';
+function renderWorkforceModeSwitcher(){
+  const nav=document.querySelector('.sidebar-nav');
+  if(!nav||document.getElementById('workforceModeSwitcher'))return;
+  const wrap=document.createElement('div');
+  wrap.id='workforceModeSwitcher';
+  wrap.setAttribute('role','group');
+  wrap.setAttribute('aria-label','Workforce management category');
+  wrap.style.cssText='padding:12px;margin:10px 8px 18px;border:1px solid rgba(125,151,185,.35);border-radius:12px;';
+  const label=document.createElement('div');
+  label.textContent='WORKFORCE MANAGEMENT';
+  label.style.cssText='font-size:11px;font-weight:800;letter-spacing:.08em;margin-bottom:9px;';
+  const controls=document.createElement('div');
+  controls.style.cssText='display:flex;gap:6px;';
+  const selected=()=>sessionStorage.getItem(WORKFORCE_MODE_KEY)==='non_dot'?'non_dot':'dot';
+  const buttons=[];
+  for(const [value,caption] of [['dot','DOT'],['non_dot','Non-DOT']]){
+    const btn=document.createElement('button');btn.type='button';btn.textContent=caption;
+    btn.setAttribute('aria-pressed','false');
+    btn.style.cssText='flex:1;padding:9px 6px;border-radius:8px;border:1px solid #94a8c1;cursor:pointer;font-weight:700;';
+    btn.addEventListener('click',()=>{sessionStorage.setItem(WORKFORCE_MODE_KEY,value);paint();document.dispatchEvent(new CustomEvent('workforce:management-mode-changed',{detail:{mode:value}}));});
+    controls.append(btn);buttons.push([value,btn]);
+  }
+  const note=document.createElement('div');note.style.cssText='font-size:11px;line-height:1.45;margin-top:8px;opacity:.82;';
+  note.textContent='Select a management category. Records remain unchanged until service filtering is enabled.';
+  function paint(){for(const [value,btn] of buttons){const active=selected()===value;btn.setAttribute('aria-pressed',String(active));btn.style.background=active?'#f16a00':'transparent';btn.style.color=active?'#fff':'inherit';}}
+  wrap.append(label,controls,note);nav.prepend(wrap);paint();
+}
 async function boot(){
   bindShell();
   try{
     context=await sessionContext(); if(!context)return;
     renderShell(context);
+    renderWorkforceModeSwitcher();
     bindAccordion();
     if(page!=='onboarding' && !await onboardingGuard())return;
     if(!await enforcePageFeature(context))return;
