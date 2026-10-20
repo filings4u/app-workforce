@@ -1,0 +1,25 @@
+import {createScopedClient,workspaceStorageKeyFor} from './supabase.js?v=20260916-auth-isolation-v4';
+const status=document.querySelector('#handoff-status');
+const destinations={ctpa:'ctpa/dashboard.html',employer:'employer/dashboard.html',owner_operator:'owner-operator/dashboard.html',employee:'employee/dashboard.html',driver:'driver/dashboard.html'};
+const codes={ctpa:'ctpa',ctpa_workforce:'ctpa',ctpa_dot:'ctpa',employer:'employer',employer_workforce:'employer',employer_dot:'employer',owner_operator:'owner_operator',employee:'employee',employee_workforce:'employee',employee_dot:'employee',driver:'driver',driver_workforce:'driver',driver_dot:'driver'};
+const config=window.S4U_SUPABASE_CONFIG;
+(async()=>{try{
+ const url=new URL(location.href),code=url.searchParams.get('code');
+ history.replaceState(null,'','/auth-handoff.html');
+ if(!/^[0-9a-f]{64}$/i.test(code||''))throw Error('Invalid or expired sign-in link.');
+ if(!config?.url||!config?.publishableKey)throw Error('Authentication is not configured.');
+ const r=await fetch(config.url+'/functions/v1/portal-session-handoff',{method:'POST',headers:{'Content-Type':'application/json',apikey:config.publishableKey},body:JSON.stringify({action:'redeem',code})});
+ const handoff=await r.json().catch(()=>({}));
+ if(!r.ok||!handoff.token_hash)throw Error(handoff.error||'Handoff rejected.');
+ const portal=codes[String(handoff.target_portal||'').toLowerCase()];
+ if(!portal||!destinations[portal])throw Error('Invalid Workforce destination.');
+ if(handoff.target_surface!=='workforce'&&handoff.target_surface!=='dot')throw Error('Invalid Workforce session surface.');
+ const client=createScopedClient(portal);
+ const {data,error}=await client.auth.verifyOtp({token_hash:handoff.token_hash,type:'magiclink'});
+ if(error||!data?.session)throw Error(error?.message||'Unable to establish portal session.');
+ sessionStorage.setItem('s4u_auth_scope_tab',portal);
+ const {data:ctx,error:ce}=await client.functions.invoke('workforce-session-context',{body:{requested_portal:portal}});
+ if(ce||!ctx?.has_access||ctx.requires_workspace_selection||ctx.portal!==portal)throw Error('This account is not authorized for the selected workspace.');
+ if(ctx.membership?.id)sessionStorage.setItem(workspaceStorageKeyFor(portal),ctx.membership.id);
+ location.replace('/'+destinations[portal]);
+ }catch(e){status.textContent=e?.message||'Unable to sign in. Return to the selector.';status.setAttribute('role','alert')}})();
