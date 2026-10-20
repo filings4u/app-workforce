@@ -13,5 +13,5 @@ const status=document.querySelector('#dotStatus'),container=document.querySelect
  const allowed=role==='ctpa'?agencies:agencies.filter(a=>p.subscriptions?.some(s=>s.agency===a));
  if(!allowed.length)throw Error('DOT agency assignment is required.');
  const list=document.querySelector('#dotAgencyList');for(const agency of allowed){const el=document.createElement('div');el.className='card';el.style.padding='18px';el.style.margin='12px 0';el.textContent=agency+' — Legacy workflow migration pending';list.append(el)}
- status.textContent='DOT access verified';container.hidden=false;
- }catch(e){status.textContent=e?.message||'Access denied';status.setAttribute('role','alert')}})();
+ status.textContent='DOT access verified';container.hidden=false;document.body.style.visibility='visible';
+ }catch(e){status.textContent=e?.message||'Access denied';status.setAttribute('role','alert');document.body.style.visibility='visible'}})();
