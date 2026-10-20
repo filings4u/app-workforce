@@ -12,7 +12,8 @@ function crawl(dir){
    const re=/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/g;
    for(const match of html.matchAll(re)){
     const src=match[1];if(/^(https?:)?\/\//.test(src)||src.startsWith('data:'))continue;
-    const abs=path.resolve(path.dirname(full),src.split('?')[0].split('#')[0]);
+    const clean=src.split('?')[0].split('#')[0];
+    const abs=clean.startsWith('/')?path.join(root,clean.slice(1)):path.resolve(path.dirname(full),clean);
     checked++;
     if(!abs.startsWith(root+path.sep)||!fs.existsSync(abs))errors.push(path.relative(root,full)+': missing '+src);
    }
