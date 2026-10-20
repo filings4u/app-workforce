@@ -9,9 +9,9 @@ function crawl(dir){
   if(entry.isDirectory())crawl(full);
   else if(entry.name.endsWith('.html')){
    const html=fs.readFileSync(full,'utf8');
-   const re=/<script\\b[^>]*\\bsrc=["']([^"']+)["'][^>]*>/g;
+   const re=/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/g;
    for(const match of html.matchAll(re)){
-    const src=match[1];if(/^(https?:)?\\/\\//.test(src)||src.startsWith('data:'))continue;
+    const src=match[1];if(/^(https?:)?\/\//.test(src)||src.startsWith('data:'))continue;
     const abs=path.resolve(path.dirname(full),src.split('?')[0].split('#')[0]);
     checked++;
     if(!abs.startsWith(root+path.sep)||!fs.existsSync(abs))errors.push(path.relative(root,full)+': missing '+src);
