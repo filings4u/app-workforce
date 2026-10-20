@@ -12,6 +12,23 @@ const status=document.querySelector('#dotStatus'),container=document.querySelect
  const agencies=['FMCSA','FAA','FRA','FTA','PHMSA','USCG'];
  const allowed=role==='ctpa'?agencies:agencies.filter(a=>p.subscriptions?.some(s=>s.agency===a));
  if(!allowed.length)throw Error('DOT agency assignment is required.');
- const list=document.querySelector('#dotAgencyList');for(const agency of allowed){const el=document.createElement('div');el.className='card';el.style.padding='18px';el.style.margin='12px 0';el.textContent=agency+' — Legacy workflow migration pending';list.append(el)}
+ const list=document.querySelector('#dotAgencyList');
+ const modules=[
+  {label:'Compliance Overview',url:'compliance.html',description:'Open compliance tracking'},
+  {label:'DOT Programs',url:'programs.html',description:'Review program enrollment and management'},
+  {label:'Clearinghouse',url:'clearinghouse.html',description:'Open clearinghouse workflow'},
+  ...(role==='employer'?[{label:'Driver Qualification',url:'driver-qualification.html',description:'Review driver qualification files'}]:[])
+ ];
+ for(const agency of allowed){
+  const section=document.createElement('section');section.className='card';section.style.padding='18px';section.style.margin='12px 0';
+  const heading=document.createElement('h3');heading.textContent=agency+' DOT';section.append(heading);
+  const body=document.createElement('div');body.style.display='grid';body.style.gridTemplateColumns='repeat(auto-fit,minmax(210px,1fr))';body.style.gap='12px';
+  for(const module of modules){
+   const link=document.createElement('a');link.href=module.url;link.className='btn btn-outline';
+   link.style.display='block';link.style.padding='16px';link.textContent=module.label;
+   link.title=module.description;body.append(link);
+  }
+  section.append(body);list.append(section);
+ }
  status.textContent='DOT access verified';container.hidden=false;
  }catch(e){status.textContent=e?.message||'Access denied';status.setAttribute('role','alert')}})();
