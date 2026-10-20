@@ -1,5 +1,5 @@
 import {supabase} from './supabase.js?v=20260916-auth-isolation-v4';
-const landing=new URL('../access-required.html?reason=dot-program',import.meta.url);
+const landing=new URL('../../access-required.html?reason=dot-program',import.meta.url);
 (async()=>{try{
  const {data:{session}}=await supabase.auth.getSession();if(!session)throw Error('Sign in required');
  const {data:ctx,error:ce}=await supabase.functions.invoke('workforce-session-context',{body:{requested_portal:'ctpa'}});
