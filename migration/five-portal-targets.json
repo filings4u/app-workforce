@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "application_repo": "filings4u/app-workforce",
+  "portals": [
+    {
+      "role": "ctpa",
+      "target_path": "ctpa",
+      "requires_backend_entitlement": true
+    },
+    {
+      "role": "employer",
+      "target_path": "employer",
+      "requires_backend_entitlement": true
+    },
+    {
+      "role": "owner_operator",
+      "target_path": "owner-operator",
+      "requires_backend_entitlement": true
+    },
+    {
+      "role": "employee",
+      "target_path": "employee",
+      "requires_backend_entitlement": true
+    },
+    {
+      "role": "driver",
+      "target_path": "driver",
+      "requires_backend_entitlement": true
+    }
+  ],
+  "program_policy": {
+    "DOT": [
+      "DOT",
+      "NON_DOT"
+    ],
+    "NON_DOT": [
+      "NON_DOT"
+    ],
+    "DOT_AND_NON_DOT": [
+      "DOT",
+      "NON_DOT"
+    ],
+    "OWNER_OPERATOR": [
+      "OWNER_OPERATOR"
+    ]
+  },
+  "legacy_sources": [
+    {
+      "repository": "filings4u/dot.screenings4u.com",
+      "role": null,
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/ctpa-dot.screenings4u.com",
+      "role": "ctpa",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/fmcsa-employer-dot.screenings4u.com",
+      "role": "employer",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/fmcsa-dot",
+      "role": null,
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/faa-dot",
+      "role": null,
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/fra-dot",
+      "role": null,
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/fta-dot",
+      "role": null,
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/phmsa-dot",
+      "role": null,
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/uscg-dot",
+      "role": null,
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/employee-dot",
+      "role": "employee",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/ctpa-driver-dot.screenings4u.com",
+      "role": "ctpa",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/ctpa-non-dot.screenings4u.com",
+      "role": "ctpa",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/ctpa-employee-non-dot.screenings4u.com",
+      "role": "ctpa",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/faa-employee-dot.screenings4u.com",
+      "role": "employee",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/faa-employer-dot.screenings4u.com",
+      "role": "employer",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/fra-employer-dot.screenings4u.com",
+      "role": "employer",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/fta-employer-dot.screenings4u.com",
+      "role": "employer",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/phmsa-employee-dot.screenings4u.com",
+      "role": "employee",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/uscg-employee-dot.screenings4u.com",
+      "role": "employee",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/phmsa-employer-dot.screenings4u.com",
+      "role": "employer",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/uscg-employer-dot.screenings4u.com",
+      "role": "employer",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/non-dot.screenings4u.com",
+      "role": null,
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/ctpa-driver-non-dot.screenings4u.com",
+      "role": "ctpa",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/owner-operator.screenings4u.com",
+      "role": "owner_operator",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/non-dot-portal",
+      "role": null,
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/employer-non-dot.screenings4u.com",
+      "role": "employer",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/ctpa-employer-dot.screenings4u.com",
+      "role": "ctpa",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/ctpa-employee-dot.screenings4u.com",
+      "role": "ctpa",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/fmcsa-driver-dot.screenings4u.com",
+      "role": "driver",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/fmcsa-employee-dot.screenings4u.com",
+      "role": "employee",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/fra-employee-dot.screenings4u.com",
+      "role": "employee",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/fta-employee-dot.screenings4u.com",
+      "role": "employee",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    },
+    {
+      "repository": "filings4u/ctpa-employer-non-dot.screenings4u.com",
+      "role": "ctpa",
+      "status": "inventory_pending_script_extraction",
+      "retire_after": "script_parity_and_authorization_tests"
+    }
+  ],
+  "release_gates": [
+    "enumerate source files and live function calls by portal",
+    "copy and verify scripts by feature domain",
+    "implement distinct Driver portal frontend and access rules",
+    "resolve five roles from purchased programs and individual grants",
+    "migrate existing portal links and authenticate end-to-end",
+    "archive and remove retired repositories only after rollback backups"
+  ]
+}
